@@ -3,29 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Expense Tracker</title>
+  <meta name="description" content="A simple dashboard for tracking personal expenses.">
+  <meta name="theme-color" content="#173f35">
+  <title>Expense Tracker Dashboard</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
+  <main class="app-shell">
+    <section class="dashboard" aria-labelledby="page-title">
+      <header class="dashboard-header">
+        <div class="brand">
+          <img src="images/img2.webp" alt="" class="brand-icon">
+          <div>
+            <p class="eyebrow">Personal finance</p>
+            <h1 id="page-title">Expense Tracker</h1>
+          </div>
+        </div>
+        <p class="header-copy">Record everyday spending and keep an eye on your monthly total.</p>
+      </header>
 
-  <div class="container">
-    <h1> <img src="img2.webp" alt="icon" class="icon">
-Expense Tracker</h1>
+      <section class="summary-grid" aria-label="Expense summary">
+        <article class="summary-card summary-card-primary">
+          <span>Total expenses</span>
+          <strong id="total-amount">₹0.00</strong>
+        </article>
+        <article class="summary-card">
+          <span>This month</span>
+          <strong id="month-amount">₹0.00</strong>
+        </article>
+        <article class="summary-card">
+          <span>Entries</span>
+          <strong id="expense-count">0</strong>
+        </article>
+      </section>
 
-    <div class="form-group">
-      <input type="text" id="title" placeholder="Expense Title">
-      <input type="number" id="amount" placeholder="Amount">
-      <input type="date" id="date">
-      <button onclick="addExpense()">Add Expense</button>
-    </div>
+      <section class="panel" aria-labelledby="add-expense-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">New record</p>
+            <h2 id="add-expense-title">Add an expense</h2>
+          </div>
+        </div>
 
-    <div id="expense-list"></div>
+        <form id="expense-form">
+          <div class="form-grid">
+            <label class="field">
+              <span>Expense title</span>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="e.g. Grocery shopping"
+                maxlength="80"
+                autocomplete="off"
+                required
+              >
+            </label>
 
-    <div class="total">
-      Total: ₹<span id="total-amount">0</span>
-    </div>
-  </div>
+            <label class="field">
+              <span>Amount</span>
+              <span class="amount-input">
+                <span aria-hidden="true">₹</span>
+                <input
+                  type="number"
+                  id="amount"
+                  name="amount"
+                  placeholder="0.00"
+                  min="0.01"
+                  step="0.01"
+                  inputmode="decimal"
+                  required
+                >
+              </span>
+            </label>
 
-  <script src="script.js"></script>
+            <label class="field">
+              <span>Date</span>
+              <input type="date" id="date" name="date" required>
+            </label>
+
+            <button class="add-button" type="submit">Add expense</button>
+          </div>
+          <p id="form-error" class="form-message error-message" role="alert"></p>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="expense-list-title">
+        <div class="section-heading list-heading">
+          <div>
+            <p class="eyebrow">Spending history</p>
+            <h2 id="expense-list-title">Your expenses</h2>
+          </div>
+          <button id="clear-all" class="text-button danger-text" type="button" hidden>
+            Clear all
+          </button>
+        </div>
+
+        <div class="list-controls">
+          <label class="search-field">
+            <span class="visually-hidden">Search expenses</span>
+            <input id="expense-search" type="search" placeholder="Search expenses">
+          </label>
+          <label>
+            <span class="visually-hidden">Sort expenses</span>
+            <select id="expense-sort">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="highest">Highest amount</option>
+              <option value="lowest">Lowest amount</option>
+            </select>
+          </label>
+        </div>
+
+        <p id="empty-state" class="empty-state">No expenses yet. Add your first one above.</p>
+        <ul id="expense-list" class="expense-list" aria-live="polite"></ul>
+        <p id="app-status" class="visually-hidden" aria-live="polite"></p>
+      </section>
+    </section>
+  </main>
 </body>
 </html>
